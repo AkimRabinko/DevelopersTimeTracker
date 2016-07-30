@@ -1,0 +1,57 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_user" author="Akim_Rabinko">
+        <createTable tableName="user">
+            <column name="USER_ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true"  nullable="false" />
+            </column>
+            <column name="USER_NAME" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_LAST_NAME" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_LOGIN" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_PASSWORD" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_POSITION" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="USER_TIME" type="varchar(50)"/>
+            <column name="USER_ROLE" type="varchar(50)" defaultValue="ROLE_DEVELOPER">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_time" author="Akim_Rabinko">
+        <createTable tableName="user_time">
+            <column name="TIME_ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="TIME" type="int"/>
+            <column name="DESCRIPTION" type="varchar(50)" />
+            <column name="USER_ID" type="int">
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="USER_ID"
+                                 baseTableName="user_time"
+                                 constraintName="FOREIGN_KEY"
+                                 referencedColumnNames="USER_ID"
+                                 referencedTableName="user"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE" />
+    </changeSet>
+
+    <changeSet id="tag-1.0" author="Akim_Rabinko">
+        <tagDatabase tag="1.0" />
+    </changeSet>
+
+
+</databaseChangeLog>

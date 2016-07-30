@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mycompany.developerstimetracker.entity.User" table="user">
+        <id name="userId" type="java.lang.Integer">
+            <column name="USER_ID" unique="true"/>
+            <generator class="assigned" />
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="USER_NAME" length="50" not-null="true" unique="false" />
+        </property>
+        <property name="userLastName" type="java.lang.String">
+            <column name="USER_LAST_NAME" length="50" not-null="false" unique="false" />
+        </property>
+        <property name="userLogin" type="java.lang.String">
+            <column name="USER_LOGIN" length="50" not-null="false" unique="false" />
+        </property>
+        <property name="userPassword" type="java.lang.String">
+            <column name="USER_PASSWORD" length="50" not-null="false" unique="false" />
+        </property>
+        <property name="userLastName" type="java.lang.String">
+            <column name="USER_LAST_NAME" length="45" not-null="false" unique="false" />
+        </property>
+        <property name="userPosition" type="java.lang.String">
+            <column name="USER_POSITION" length="50" not-null="true" unique="false" />
+        </property>
+
+        <property name="userRole" type="java.lang.String">
+            <column name="USER_ROLE" length="50" not-null="true" unique="false" />
+        </property>
+
+        <set name="userTime" table="user_time" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USER_ID" not-null="true"></column>
+            </key>
+            <one-to-many class="com.mycompany.developerstimetracker.entity.Time"/>
+        </set>
+    </class>
+</hibernate-mapping>

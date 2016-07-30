@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mycompany.developerstimetracker.entity.Time" table="user_time">
+        <id name="timeId" type="java.lang.Integer">
+            <column name="TIME_ID" unique="true"/>
+            <generator class="assigned" />
+        </id>
+        <property name="time" type="int">
+            <column name="TIME" not-null="false" unique="false" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" length="50" not-null="false" unique="false" />
+        </property>
+        <property name="date" type="java.util.Date">
+            <column name="USER_DATE" not-null="false" unique="false" />
+        </property>
+        <many-to-one name="user" class="com.mycompany.developerstimetracker.entity.User" fetch="select">
+            <column name="USER_ID" not-null="true"></column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

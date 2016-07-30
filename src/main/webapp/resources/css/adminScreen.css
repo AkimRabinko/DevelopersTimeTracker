@@ -1,0 +1,51 @@
+h2 {
+    color: #fbfff9;
+    font-family: "Century Gothic" ;
+}
+.block1 {
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 320px;
+    height: 30px;
+    background: #428574;
+    padding: 5px;
+    border-bottom: solid 1px #fbfff9;
+}
+input {
+    color: #fbfff9;
+    background-color: #034748;
+    border: 0;
+    width: 55px;
+    height: 30px;
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+}
+.text {
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    background-color: #034748;
+    color: #fbfff9;
+    width: 95px;
+    height: 30px;
+}
+button {
+    width: 55px;
+    height: 30px;
+    font-size: 15pt;
+    background-color: #034748;
+    color: #fbfff9;
+    border: 0;
+}
+
+.block2 {
+    color: #fbfff9;
+    background: #428574;
+    float: right;
+}
+.block3 {
+    left: 50%;
+    width: 250px;
+    position: relative;
+    margin-left: -175px;
+}

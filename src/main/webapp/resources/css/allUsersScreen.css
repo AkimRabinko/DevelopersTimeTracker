@@ -1,0 +1,40 @@
+h2 {
+    color: #fbfff9;
+    font-family: "Century Gothic" ;
+}
+button {
+    border: 0;
+    font-size: 16pt;
+    background-color: #034748;
+    color: #fbfff9;
+    font-family: "Century Gothic"
+}
+.block1 {
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 200px;
+    height: 30px;
+    background: #034748;
+    padding: 5px;
+    border: solid 1px #fbfff9;
+    float: left;
+}
+.block2 {
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 200px;
+    height: 30px;
+    background-color: #034748;
+    padding: 6px;
+    border-bottom: solid 1px #fbfff9;
+    float: left;
+    position: relative;
+}
+.block3 {
+    left: 50%;
+    width: 900px;
+    position: relative;
+    margin-left: -400px;
+}
