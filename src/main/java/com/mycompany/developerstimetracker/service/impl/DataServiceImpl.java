@@ -5,6 +5,7 @@ import com.mycompany.developerstimetracker.dto.UserTO;
 import com.mycompany.developerstimetracker.entity.Time;
 import com.mycompany.developerstimetracker.entity.User;
 import com.mycompany.developerstimetracker.service.DataService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +17,7 @@ public class DataServiceImpl implements DataService {
 
     private User user;
     private Time time;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void convertToUserEntity(UserTO userTO) {
@@ -23,7 +25,7 @@ public class DataServiceImpl implements DataService {
         user.setUserName(userTO.getUserName());
         user.setUserLastName(userTO.getUserLastName());
         user.setUserLogin(userTO.getUserLogin());
-        user.setUserPassword(userTO.getUserPassword());
+        user.setUserPassword(passwordEncoder.encode(userTO.getUserPassword()));
         user.setUserPosition(userTO.getUserPosition());
         user.setUserTime(userTO.getUserTimeTO());
         user.setUserRole(userTO.getUserRole());

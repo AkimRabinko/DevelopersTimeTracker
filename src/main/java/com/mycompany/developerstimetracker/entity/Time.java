@@ -26,10 +26,11 @@ public class Time {
     @Column(name = "USER_TIME")
     private Date date;
 
-
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Project project;
 
     public Time() {
     }
@@ -74,6 +75,14 @@ public class Time {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override

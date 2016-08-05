@@ -57,7 +57,7 @@ input {
     font-size: 15pt;
     color: #fbfff9;
     width: 243px;
-    height: 30px;
+    height: auto;
     background-color: #034748;
     padding: 6px;
     border-bottom: solid 1px #fbfff9;

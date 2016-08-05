@@ -4,7 +4,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/403.css"/>">
 <style type="text/css">
-    body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");  }
+    body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
+            background-position: right;
+            background-color:  #034748;}
 </style>
 
 <h2>HTTP Status 403 - Access is denied</h2>

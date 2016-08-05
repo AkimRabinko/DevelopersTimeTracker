@@ -10,7 +10,9 @@
     <script type="text/javascript" src="<c:url value="/resources/javaScript/main.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/login.css"/>">
     <style type="text/css">
-        body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");  }
+        body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
+                background-position: right;
+                background-color:  #034748;}
     </style>
 </head>
 <body>

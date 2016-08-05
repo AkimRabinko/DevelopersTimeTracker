@@ -9,7 +9,7 @@
                 <constraints primaryKey="true"  nullable="false" />
             </column>
             <column name="USER_NAME" type="varchar(50)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="USER_LAST_NAME" type="varchar(50)">
                 <constraints nullable="false" />
@@ -17,13 +17,14 @@
             <column name="USER_LOGIN" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="USER_PASSWORD" type="varchar(50)">
+            <column name="USER_PASSWORD" type="varchar(60)">
                 <constraints nullable="false" />
             </column>
             <column name="USER_POSITION" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="USER_TIME" type="varchar(50)"/>
+            <column name="USER_TIME" type="varchar(50)">
+            </column>
             <column name="USER_ROLE" type="varchar(50)" defaultValue="ROLE_DEVELOPER">
                 <constraints nullable="false" />
             </column>
@@ -52,6 +53,5 @@
     <changeSet id="tag-1.0" author="Akim_Rabinko">
         <tagDatabase tag="1.0" />
     </changeSet>
-
 
 </databaseChangeLog>

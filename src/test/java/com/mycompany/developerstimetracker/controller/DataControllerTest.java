@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,8 +53,6 @@ public class DataControllerTest {
 
         when(mockedDataController.getUsers()).thenReturn(Arrays.asList(user1, user2));
         when(mockedDataController.getUserById(2)).thenReturn(user2);
-        when(mockedDataController.getUserTimeAndDescription(2,2)).thenReturn(Arrays.asList(time1,time2));
-        when(mockedDataController.updateUserTimeAndDescriptions(1, timeTO)).thenReturn(time1);
         when(mockedDataController.addNewUser(userTO)).thenReturn(user1);
     }
 
@@ -82,23 +79,7 @@ public class DataControllerTest {
         assertEquals("ROLE_ADMIN", singleUser.getUserRole());
     }
 
-    @Test
-    public void testGetTimeAndDescriptions () {
-        List<Time> allTime = mockedDataController.getUserTimeAndDescription(2,2);
-        Time singleTime = allTime.get(0);
-        assertEquals(3, singleTime.getTime());
-        assertEquals("ddddd", singleTime.getDescription());
-        assertEquals(java.sql.Date.valueOf(LocalDate.now()), singleTime.getDate());
-    }
 
-    @Test
-    public void testUpdateTimeAndDescription () {
-        Time updatedTime = mockedDataController.updateUserTimeAndDescriptions(1, timeTO);
-        assertNotNull(updatedTime);
-        assertEquals("ddddd" , updatedTime.getDescription());
-        assertEquals(3 , updatedTime.getTime());
-        assertEquals(java.sql.Date.valueOf(LocalDate.now()), updatedTime.getDate());
-    }
 
     @Test
     public void testAddUser() {

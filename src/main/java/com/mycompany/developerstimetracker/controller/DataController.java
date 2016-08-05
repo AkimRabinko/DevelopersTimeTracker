@@ -2,21 +2,19 @@ package com.mycompany.developerstimetracker.controller;
 
 import com.mycompany.developerstimetracker.dto.TimeTO;
 import com.mycompany.developerstimetracker.dto.UserTO;
+import com.mycompany.developerstimetracker.entity.Project;
 import com.mycompany.developerstimetracker.entity.Time;
 import com.mycompany.developerstimetracker.entity.User;
 import com.mycompany.developerstimetracker.handler.DataHandler;
-import com.mycompany.developerstimetracker.service.DataService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
-<<<<<<< HEAD
-=======
-import java.time.Year;
->>>>>>> master
 import java.util.List;
 
 /**
@@ -30,10 +28,7 @@ public class DataController implements Serializable{
     @Autowired
     private DataHandler dataHandler;
 
-    @Autowired
-    private DataService dataService;
-
-    @RequestMapping(value = "/admin/time/descriptions", method = RequestMethod.GET )
+        @RequestMapping(value = "/admin/time/descriptions", method = RequestMethod.GET )
     public @ResponseBody List<User> getUsers() {
         return dataHandler.getAllUsers();
     }
@@ -43,30 +38,51 @@ public class DataController implements Serializable{
         return dataHandler.getSingleUser(id);
     }
 
-    @RequestMapping(value = "/{id}/time/descriptions/{limit}", method = RequestMethod.GET )
-    public @ResponseBody List<Time> getUserTimeAndDescription(@PathVariable("id") int id,
+    @RequestMapping(value = "/{id}/time/descriptions/bylimit/{limit}", method = RequestMethod.GET )
+    public @ResponseBody List<Time> getUserTimeAndDescriptionByLimit(@PathVariable("id") int id,
                                                               @PathVariable("limit") int limit) {
-        return dataHandler.timeHandler(id, limit);
+        return dataHandler.timeHandlerByLimit(id, limit);
+    }
+
+    @RequestMapping(value = "/{id}/time/descriptions/bymonth/{month}", method = RequestMethod.GET )
+    public @ResponseBody List<Time> getUserTimeAndDescriptionByMonth(@PathVariable("id") int id,
+                                                              @PathVariable("month") Month month) {
+        return dataHandler.timeHandlerByMonth(id, month);
+    }
+
+    @RequestMapping(value = "/{id}/time/descriptions/byrange/{fromDate}/{toDate}", method = RequestMethod.GET )
+    public @ResponseBody List<Time> getUserTimeAndDescriptionByRange(@PathVariable("id") int id,
+                                                                     @PathVariable("fromDate") Date fromDate,
+                                                                     @PathVariable("toDate") Date toDate) {
+        return dataHandler.timeHandlerByRange(id, fromDate, toDate);
     }
 
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST )
     public @ResponseBody User addNewUser(@RequestBody UserTO newUser) {
-        dataService.convertToUserEntity(newUser);
-        return dataHandler.addNewUser(dataService.getConvertedUser());
+        return dataHandler.addNewUser(newUser);
     }
 
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.PUT )
-    public @ResponseBody Time updateUserTimeAndDescriptions(@PathVariable("id") Integer id,
+    @RequestMapping(value = "/{userid}/{projectname}/update", method = RequestMethod.PUT )
+    public @ResponseBody Time updateUserTimeAndDescriptions(@PathVariable("userid") Integer userId,
+                                                            @PathVariable("projectname") String projectName,
                                                                 @RequestBody TimeTO newTime) {
-        dataService.convertToTimeEntity(newTime);
-        return dataHandler.updateUserTime(dataService.getConvertedTime(), id);
+        return dataHandler.updateUserTime(userId,projectName,newTime);
     }
 
     @RequestMapping(value = "/{id}/totaltime", method = RequestMethod.GET )
     public @ResponseBody int getTotalTime(@PathVariable("id") int id) {
         Month currentMonth = LocalDate.now().getMonth();
-        int currentYear  = LocalDate.now().getYear();
-        return dataHandler.getTotalTime(currentMonth , currentYear, id);
+        return dataHandler.getTotalTime(currentMonth ,id);
+    }
+
+    @RequestMapping(value ="/availableprojects",  method = RequestMethod.GET)
+    public @ResponseBody List<Project> getAvailableProjects() {
+        return dataHandler.getAvailableProjects();
+    }
+
+    @RequestMapping(value ="/report",  method = RequestMethod.GET)
+    public @ResponseBody String getResport() throws JRException {
+        return dataHandler.getReport();
     }
 
 }
