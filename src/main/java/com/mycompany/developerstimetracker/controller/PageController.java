@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -54,10 +55,14 @@ public class PageController {
     @RequestMapping(value = "/{id}", produces = MediaType.TEXT_HTML_VALUE)
     public String getUserById(@PathVariable int id, ModelMap map) {
         LocalDate currentDate = LocalDate.now();
+        Month currentMonth = LocalDate.now().getMonth();
+        Month lastMonth = LocalDate.now().getMonth().minus(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
         currentDate.format(formatter);
         adminId = id;
         map.put("userId", id);
+        map.put("currentMonth", currentMonth);
+        map.put("lastMonth", lastMonth);
         map.put("currentDate" , currentDate);
         return "singleUserScreen";
     }

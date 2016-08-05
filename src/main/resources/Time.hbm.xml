@@ -20,5 +20,10 @@
         <many-to-one name="user" class="com.mycompany.developerstimetracker.entity.User" fetch="select">
             <column name="USER_ID" not-null="true"></column>
         </many-to-one>
+
+        <many-to-one name="project" class="com.mycompany.developerstimetracker.entity.Project" fetch="select">
+            <column name="PROJECT_NAME" not-null="true"></column>
+        </many-to-one>
+
     </class>
 </hibernate-mapping>

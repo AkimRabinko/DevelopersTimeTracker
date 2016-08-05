@@ -1,0 +1,57 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+<changeSet id="create_project_column" author="Akim_Rabinko">
+    <createTable tableName="project">
+        <column name="PROJECT_ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="PROJECT_NAME" type="varchar(50)" />
+    </createTable>
+
+    <createTable tableName="user_project">
+        <column name="USER_PROJECT_ID" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false" />
+        </column>
+        <column name="USER_ID" type="int"/>
+        <column name="PROJECT_ID" type="int" />
+    </createTable>
+
+    <addColumn tableName="user_time">
+        <column name="PROJECT_ID" type="int"></column>
+    </addColumn>
+
+    <addForeignKeyConstraint baseColumnNames="USER_ID"
+                             baseTableName="user_project"
+                             constraintName="FOREIGN_KEY_1"
+                             referencedColumnNames="USER_ID"
+                             referencedTableName="user"
+                             onDelete="CASCADE"
+                             onUpdate="CASCADE" />
+
+    <addForeignKeyConstraint baseColumnNames="PROJECT_ID"
+                             baseTableName="user_project"
+                             constraintName="FOREIGN_KEY_2"
+                             referencedColumnNames="PROJECT_ID"
+                             referencedTableName="project"
+                             onDelete="CASCADE"
+                             onUpdate="CASCADE" />
+
+    <addForeignKeyConstraint baseColumnNames="PROJECT_ID"
+                             baseTableName="user_time"
+                             constraintName="FOREIGN_KEY_3"
+                             referencedColumnNames="PROJECT_ID"
+                             referencedTableName="project"
+                             onDelete="CASCADE"
+                             onUpdate="CASCADE" />
+</changeSet>
+
+<changeSet id="tag-1.1" author="Akim_Rabinko">
+<tagDatabase tag="1.1" />
+</changeSet>
+
+
+</databaseChangeLog>

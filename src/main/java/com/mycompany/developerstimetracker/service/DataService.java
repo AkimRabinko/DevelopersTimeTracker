@@ -9,8 +9,8 @@ import com.mycompany.developerstimetracker.entity.User;
  * Created by AkimPC on 09.07.2016.
  */
 public interface DataService {
-    public void convertToUserEntity(UserTO userTO);
-    public void convertToTimeEntity(TimeTO timeTO);
-    public User getConvertedUser();
-    public Time getConvertedTime();
+    void convertToUserEntity(UserTO userTO);
+    void convertToTimeEntity(TimeTO timeTO);
+    User getConvertedUser();
+    Time getConvertedTime();
 }

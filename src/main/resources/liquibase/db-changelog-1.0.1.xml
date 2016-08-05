@@ -5,9 +5,12 @@
 
 <changeSet id="add time" author="Akim_Rabinko">
     <addColumn tableName="user_time">
-        <column name="USER_DATE" type="TIME" >
-            <constraints nullable="false"/>
-        </column>
+        <column name="USER_DATE" type="TIME" />
     </addColumn>
 </changeSet>
+
+    <changeSet id="tag-1.0.1" author="Akim_Rabinko">
+        <tagDatabase tag="1.0.1" />
+    </changeSet>
+
 </databaseChangeLog>

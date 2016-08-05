@@ -10,10 +10,13 @@
     <script type="text/javascript" src="<c:url value="/resources/javaScript/main.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/singleUserScreen.css"/>">
     <style type="text/css">
-        body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");  }
+        body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
+                background-position: right;
+                background-color:  #034748;
+        }
     </style>
 </head>
-<body  onload="getUserById(${userId}), getUserTimeAndDescription(${userId}) , totalTime(${userId})">
+<body  onload="getUserById(${userId}), getUserTimeAndDescription(${userId}) , totalTime(${userId}) , getAvailableProjects()">
 
 <h2><a href="/DevelopersTimeTracker/users/admin" ><button name="admin">Admin page</button></a>
     Single user preview
@@ -30,8 +33,15 @@
             <div class="block2" id="userRole"></div>
         </div>
 
-<h2 style="margin-left: 250px">Add new time to tracker</h2>
+<h2 style="margin-left: 250px">Select Available Project</h2>
+
 <form id="dateForm">
+    <div class="block3" >
+        <div   id="projects"></div>
+    </div>
+
+<h2 style="margin-left: 250px">Add new time to tracker</h2>
+
     <div class="block3">
         <div class="block6"> Select date
             <div class="block5"><input type="date" name="date" id="date" value="${currentDate}"></div>
@@ -52,13 +62,25 @@
     <select id="numberOfTimes" class="block1"
             style="height: auto; margin-left: 83px"
             onchange="getUserTimeAndDescription(${userId})">
-        <option value="5" id="5">5</option>
-        <option selected value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
+        <option value="10" >Last 10</option>
+        <option selected value="30" >Last 30</option>
+        <option value="${currentMonth}" id="currentMonth">Current month</option>
+        <option value="${lastMonth}"  id="lastMonth">Last month</option>
+        <option id="custRange" onfocus="">CustomRange</option>
     </select>
     </h2>
+
+<form >
+    <div class="block3" style="padding-bottom: 20px" id="customDate">
+    <div class="block6"> From
+        <div class="block5"><input type="date" name="fromDate" id="fromDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId})"></div>
+        </div>
+        <div class="block6"> To
+            <div class="block5"><input type="date" name="toDate" id="toDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId})"></div>
+        </div>
+    </div>
+</form>
+
     <div class="block3" id="userDate"></div>
 
 </body>

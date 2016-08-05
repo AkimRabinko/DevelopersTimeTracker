@@ -18,7 +18,7 @@
             <column name="USER_LOGIN" length="50" not-null="false" unique="false" />
         </property>
         <property name="userPassword" type="java.lang.String">
-            <column name="USER_PASSWORD" length="50" not-null="false" unique="false" />
+            <column name="USER_PASSWORD" length="60" not-null="false" unique="false" />
         </property>
         <property name="userLastName" type="java.lang.String">
             <column name="USER_LAST_NAME" length="45" not-null="false" unique="false" />
