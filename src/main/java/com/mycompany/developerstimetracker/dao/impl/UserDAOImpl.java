@@ -4,6 +4,7 @@ import com.mycompany.developerstimetracker.dao.UserDAO;
 import com.mycompany.developerstimetracker.entity.Project;
 import com.mycompany.developerstimetracker.entity.Time;
 import com.mycompany.developerstimetracker.entity.User;
+import com.mycompany.developerstimetracker.entity.UserProject;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -16,9 +17,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by AkimPC on 04.06.2016.
@@ -116,6 +115,46 @@ public class UserDAOImpl implements UserDAO {
     public List<Project> getAvailableProjects() {
         List<Project> allProjects = (List<Project>) sessionFactory.getCurrentSession().createCriteria(Project.class).list();
         return allProjects;
+    }
+
+    @Override
+    public Project addNewProject(Project project) {
+        sessionFactory.getCurrentSession().save("project", project);
+        return project;
+    }
+
+    @Override
+    public String addUserToProject(int userId, String projectName) {
+        User userToProject = (User) sessionFactory.getCurrentSession()
+                .createQuery("from User as u where u.userId=:userId")
+                .setParameter("userId", userId).uniqueResult();
+        Project project = (Project) sessionFactory.getCurrentSession()
+                .createQuery("from Project as p where p.projectName=:projectName")
+                .setParameter("projectName", projectName).uniqueResult();
+        UserProject newProject = new UserProject();
+        newProject.setUser(userToProject);
+        newProject.setProject(project);
+        sessionFactory.getCurrentSession().save("user_project" , newProject);
+        return userToProject.toString() + " //" + project.toString();
+    }
+
+    @Override
+    public String removeUserFromProject(int userId, String projectName) {
+        sessionFactory.getCurrentSession()
+                .createQuery("delete from UserProject as up where up.user.userId=:userId and up.project.projectName=:projectName")
+                .setParameter("userId", userId).setParameter("projectName", projectName);
+        return "deleted";
+    }
+
+    @Override
+    public List<User> getUsersInProject(String projectName) {
+        Project project = (Project) sessionFactory.getCurrentSession()
+                .createQuery("from Project as p where p.projectName=:projectName")
+                .setParameter("projectName", projectName).uniqueResult();
+        List<User> usersInProject = (List<User>) sessionFactory.getCurrentSession()
+                .createQuery("select up.user  from UserProject as up where up.project=:project")
+                .setParameter("project", project).list();
+        return usersInProject;
     }
 
     @Override

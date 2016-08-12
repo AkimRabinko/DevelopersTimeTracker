@@ -12,14 +12,15 @@ public class UserProject {
 
     @Id
     @Column(name ="USER_PROJECT_ID", insertable =false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userProjectId;
 
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Project> project;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Project project;
 
     public Integer getUserProjectId() {
         return userProjectId;
@@ -33,11 +34,11 @@ public class UserProject {
         this.user = user;
     }
 
-    public List<Project> getProject() {
+    public Project getProject() {
         return project;
     }
 
-    public void setProject(List<Project> project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 }

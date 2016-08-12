@@ -21,6 +21,85 @@
                 });
             }
 
+            function getUsersTeamLead() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/DevelopersTimeTracker/users/admin/time/descriptions',
+                    data: JSON,
+                    contentType: 'application/json',
+                    mimeType: 'application/json',
+                    success: function (data) {
+                        var items = "<div class=\"block4\">Name(Login)</div>"
+                            + "<div class=\"block4\">Last name</div>"
+                            + "<div class=\"block4\">Role</div>"
+                            + "<div class=\"block4\">Add to project</div>";
+                        $.each(data, function (id, user) {
+                            items += "<div class=\"block4\">" + user.userName + " (" + user.userLogin + ") " + "</div>"
+                                + "<div class=\"block4\">" + user.userLastName + "</div>"
+                                + "<div class=\"block4\">" + user.userRole + "</div>"
+                                + "<div class=\"block4\">" +
+                                    "<input type='button' name='Add' value='Add' style='margin: -1px' onclick='addUserToProject(" + user.userId + ") , getUsersInProject()'/>" +
+                                "</div>";
+                        });
+                        $('#allUsersTeamLead').html(items);
+                    }
+                });
+            }
+
+            function addUserToProject(userId) {
+                var projectName = $('#projects option:selected').val()
+                $.ajax({
+
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url:  '/DevelopersTimeTracker/users/admin/teamlead/' + userId +'/' + projectName,
+                    dataType: "json",
+                    data: JSON,
+                    success: function(data){
+                    }
+                });
+            }
+
+            function getUsersInProject() {
+                var projectName = $('#projects option:selected').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/DevelopersTimeTracker/users/admin/teamlead/' + projectName + '/getUsers',
+                    data: JSON,
+                    contentType: 'application/json',
+                    mimeType: 'application/json',
+                    success: function (data) {
+                        var items = "<div class=\"block4\">Name(Login)</div>"
+                            + "<div class=\"block4\">Last name</div>"
+                            + "<div class=\"block4\">Role</div>"
+                            + "<div class=\"block4\">Remove user</div>";
+                        $.each(data, function (id, user) {
+                            items += "<div class=\"block4\">" + user.userName + " (" + user.userLogin + ") " + "</div>"
+                                + "<div class=\"block4\">" + user.userLastName + "</div>"
+                                + "<div class=\"block4\">" + user.userRole + "</div>"
+                                + "<div class=\"block4\">" + 
+                                "<input type='button' name='Remove' value='Remove' style='margin: -1px' onclick='removeUserFromProject("+user.userId +"), getUsersInProject()'/>"
+                                + "</div>";
+                        });
+                        $('#usersInProject').html(items);
+                    }
+                });
+            }
+
+            function removeUserFromProject(userId) {
+                var projectName = $('#projects option:selected').val()
+                $.ajax({
+
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    url:  '/DevelopersTimeTracker/users/admin/teamlead/' + userId +'/' + projectName + '/remove',
+                    dataType: "json",
+                    data: JSON,
+                    success: function(data){
+                    }
+                });
+            }
+
             function getUserById(userId) {
                     $.ajax({
                         type: 'GET',
@@ -36,97 +115,6 @@
                             $('#userRole').text(data.userRole);
                         }
                     })
-            }
-
-            function getUserTimeAndDescription(userId) {
-                var numberOfResults = $('#numberOfTimes option:selected').attr("id");
-                if(numberOfResults!="custRange") {
-                    document.getElementById("customDate").style.visibility ="hidden";
-                }
-                if (numberOfResults==="custRange") {
-                    document.getElementById("customDate").style.visibility="visible";
-                    getByCustomRange(userId);
-                }
-                if( numberOfResults==="currentMonth" || numberOfResults==="lastMonth" ) {
-                    getByMonth(userId);
-                }
-                else {
-                    getByLimit(userId)
-                }
-
-            }
-
-            function getByLimit(userId) {
-                var limit = $('#numberOfTimes option:selected').val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/DevelopersTimeTracker/users/' + userId +'/time/descriptions/bylimit/' + limit,
-                    data: JSON,
-                    contentType: 'application/json',
-                    mimeType: 'application/json',
-                    success: function (data) {
-                        var timeDate= "<div class=\"block4\" style='width: 150px'>Date</div>" +
-                            "<div class=\"block4\" style='width: 80px'>Time (h)</div>" +
-                            "<div class=\"block4\">Description</div>"+
-                            "<div class=\"block4\">Project</div>";
-                        $.each(data, function (id, time) {
-                            timeDate += "<div class=\"block4\" style='width: 150px'>" + time.date + "</div>"
-                                + "<div class=\"block4\" style='width: 80px'>" + time.time + "</div>"
-                                + "<div class=\"block4\">" + time.description + "</div>"
-                                + "<div class=\"block4\">" + time.project.projectName  + "</div>";
-                        });
-                        $('#userDate').html(timeDate);
-                    }
-                });
-            }
-
-            function getByMonth(userId) {
-                var month = $('#numberOfTimes option:selected').val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/DevelopersTimeTracker/users/' + userId +'/time/descriptions/bymonth/' + month,
-                    data: JSON,
-                    contentType: 'application/json',
-                    mimeType: 'application/json',
-                    success: function (data) {
-                        var timeDate= "<div class=\"block4\" style='width: 150px'>Date</div>" +
-                            "<div class=\"block4\" style='width: 80px'>Time (h)</div>" +
-                            "<div class=\"block4\">Description</div>" +
-                            "<div class=\"block4\">Project</div>";
-                        $.each(data, function (id, time) {
-                            timeDate += "<div class=\"block4\" style='width: 150px'>" + time.date + "</div>"
-                                + "<div class=\"block4\" style='width: 80px'>" + time.time + "</div>"
-                                + "<div class=\"block4\">" + time.description + "</div>"
-                                + "<div class=\"block4\">" + time.project.projectName  + "</div>";
-                        });
-                        $('#userDate').html(timeDate);
-                    }
-                });
-            }
-
-            function getByCustomRange(userId) {
-                var fromDate = $('#fromDate').val();
-                var toDate = $('#toDate').val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/DevelopersTimeTracker/users/' + userId +'/time/descriptions/byrange/' + fromDate +'/' + toDate,
-                    data: JSON,
-                    contentType: 'application/json',
-                    mimeType: 'application/json',
-                    success: function (data) {
-                        var timeDate= "<div class=\"block4\" style='width: 150px'>Date</div>" +
-                            "<div class=\"block4\" style='width: 80px'>Time (h)</div>" +
-                            "<div class=\"block4\">Description</div>" +
-                            "<div class=\"block4\">Project</div>";
-                        $.each(data, function (id, time) {
-                            timeDate += "<div class=\"block4\" style='width: 150px'>" + time.date + "</div>"
-                                + "<div class=\"block4\" style='width: 80px'>" + time.time + "</div>"
-                                + "<div class=\"block4\">" + time.description + "</div>"
-                                + "<div class=\"block4\">" + time.project.projectName  + "</div>";
-                        });
-                        $('#userDate').html(timeDate);
-                    }
-                });
             }
 
             function check() {
@@ -206,12 +194,30 @@
                     mimeType: 'application/json',
                     success: function (data) {
                         var items = "<select  style='width: auto ; height: auto' id=\"selectedProject\" class=\"block1\""
-                            + "style=\"height: auto; margin-left: 83px\">";
+                            + "style=\"height: auto;\" onchange='getUsersInProject()'>";
                         $.each(data, function (id, projects) {
                             items += "<option value=\" " + projects.projectName + "\">" +  projects.projectName  +  "</option>";
                         });
                         items+= "</select>";
                         $('#projects').html(items);
+                        $('#project').html(items);
                     }
                 });
             }
+            
+            function addNewProject() {
+                var projectName = $('#projectName').val();
+                var JSONObject = {"projectName" : projectName};
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url:  '/DevelopersTimeTracker/users/admin/teamlead/addproject',
+                    dataType: "json",
+                    data: JSON.stringify(JSONObject),
+                    success: function(data){
+                        $("#addNewProjectForm")[0].reset();
+                    }
+                });
+            }
+
+            

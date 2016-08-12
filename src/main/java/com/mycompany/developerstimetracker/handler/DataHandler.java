@@ -24,5 +24,9 @@ public interface DataHandler {
     Time updateUserTime(int userId, String projectName, TimeTO newTime);
     int getTotalTime (Month month, int id);
     List<Project> getAvailableProjects();
+    Project addNewProject(Project project);
+    String addUserToProject(int userId, String projectName);
+    String removeUserFromProject(int userId, String projectName);
+    List<User> getUsersInProject(String projectName);
     String getReport() throws JRException;
 }

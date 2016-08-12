@@ -80,6 +80,28 @@ public class DataController implements Serializable{
         return dataHandler.getAvailableProjects();
     }
 
+    @RequestMapping(value = "/admin/teamlead/addproject", method = RequestMethod.PUT)
+    public @ResponseBody Project addNewProject(@RequestBody Project project) {
+        return dataHandler.addNewProject(project);
+    }
+
+    @RequestMapping(value = "/admin/teamlead/{userId}/{projectName}", method = RequestMethod.PUT)
+    public @ResponseBody String addUserToProject(@PathVariable int userId,
+                             @PathVariable String projectName) {
+        return dataHandler.addUserToProject(userId, projectName);
+    }
+
+    @RequestMapping(value = "/admin/teamlead/{userId}/{projectName}/remove", method = RequestMethod.DELETE)
+    public @ResponseBody String removeUserFromProject(@PathVariable int userId,
+                                                 @PathVariable String projectName) {
+        return dataHandler.removeUserFromProject(userId, projectName);
+    }
+
+    @RequestMapping(value = "/admin/teamlead/{projectName}/getUsers", method = RequestMethod.GET)
+    public @ResponseBody List<User> getUsersInProject(@PathVariable String projectName) {
+        return dataHandler.getUsersInProject(projectName);
+    }
+
     @RequestMapping(value ="/report",  method = RequestMethod.GET)
     public @ResponseBody String getResport() throws JRException {
         return dataHandler.getReport();

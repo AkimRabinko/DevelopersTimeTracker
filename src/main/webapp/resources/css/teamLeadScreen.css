@@ -1,0 +1,79 @@
+h2 {
+    color: #fbfff9;
+    font-family: "Century Gothic" ;
+}
+button {
+    border: 0;
+    font-size: 15pt;
+    background-color: #034748;
+    color: #fbfff9;
+    color: #fbfff9;
+    font-family: "Century Gothic";
+}
+input {
+    border: 0;
+    font-size: 15pt;
+    width: 180px;
+    background-color: #428574;
+    color: #fbfff9;
+    font-family: "Century Gothic";
+}
+
+.block1 {
+    display: inline-block;
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 180px;
+    height: 30px;
+    background: #034748;
+    padding: 5px;
+    border: solid 1px #fbfff9;
+    margin-left: -2px;
+    margin-right: -2px;
+}
+.block2 {
+    color: #fbfff9;
+    background: #428574;
+    float: right;
+}
+
+.block3 {
+    display: inline-block;
+    width: 900px;
+    position: relative;
+    margin-left: 250px;
+}
+.block4 {
+    display: inline-block;
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 180px;
+    height: 30px;
+    background-color: #034748;
+    padding: 5px;
+    border-bottom: solid 1px #fbfff9;
+}
+.block5 {
+    display: inline-block;
+    color: #fbfff9;
+    background: #428574;
+    float: right;
+}
+.block6 {
+    display: inline-block;
+    font-family: "Century Gothic" ;
+    font-size: 15pt;
+    color: #fbfff9;
+    width: 372px;
+    height: 30px;
+    background: #034748;
+    padding: 5px;
+    border: solid 1px #fbfff9;
+    margin: -2px;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    background-color: #036768;
+}

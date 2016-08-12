@@ -23,6 +23,10 @@ public interface UserDAO {
     List<Time> findTimeByIdRange(int id, Date fromDate, Date toDate);
     int getTotalTime(Month month, int id);
     List<Project> getAvailableProjects();
+    Project addNewProject(Project project);
+    String addUserToProject(int userId, String projectName);
+    String removeUserFromProject(int userId, String projectName);
+    List<User> getUsersInProject(String projectName);
     String getReport() throws JRException;
 
 

@@ -10,7 +10,7 @@
     <style type="text/css">
         body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
                 background-position: right;
-                background-color:  #034748;}
+                background-color: #033334;}
     </style>
 </head>
     <h2><a href="/DevelopersTimeTracker/users/${userId}" ><button name="back">Back</button></a>
@@ -29,7 +29,13 @@
                 <a href="/DevelopersTimeTracker/users/admin/time/descriptions">
                     <button name="allUsers"  id="allUsers">GO</button>
                 </a>
-
+            </div>
+        </div>
+        <div class="block1">Team Lead page
+            <div class="block2">
+                <a href="/DevelopersTimeTracker/users/admin/teamlead">
+                    <button name="teamLead"  id="teamLead">GO</button>
+                </a>
             </div>
         </div>
     </div>

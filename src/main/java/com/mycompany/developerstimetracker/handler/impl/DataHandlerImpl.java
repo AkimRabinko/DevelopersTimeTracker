@@ -69,6 +69,23 @@ public class DataHandlerImpl implements DataHandler{
         return userDAO.getAvailableProjects();
     }
 
+    public Project addNewProject(Project project) {
+        return userDAO.addNewProject(project);
+    }
+
+    public String addUserToProject(int userId, String projectName) {
+        return userDAO.addUserToProject(userId, projectName);
+    }
+
+    @Override
+    public String removeUserFromProject(int userId, String projectName) {
+        return userDAO.removeUserFromProject(userId, projectName);
+    }
+
+    public List<User> getUsersInProject(String projectName) {
+        return userDAO.getUsersInProject(projectName);
+    }
+
     public String getReport() throws JRException {
         return userDAO.getReport();
     }

@@ -8,12 +8,12 @@
     <title>Single User</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="<c:url value="/resources/javaScript/main.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/dateValidator.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/singleUserScreen.css"/>">
     <style type="text/css">
         body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
                 background-position: right;
-                background-color:  #034748;
-        }
+                background-color: #033334;}
     </style>
 </head>
 <body  onload="getUserById(${userId}), getUserTimeAndDescription(${userId}) , totalTime(${userId}) , getAvailableProjects()">
@@ -37,14 +37,14 @@
 
 <form id="dateForm">
     <div class="block3" >
-        <div   id="projects"></div>
+        <div id="projects"></div>
     </div>
 
 <h2 style="margin-left: 250px">Add new time to tracker</h2>
 
     <div class="block3">
         <div class="block6"> Select date
-            <div class="block5"><input type="date" name="date" id="date" value="${currentDate}"></div>
+            <div class="block5"><input type="date" name="date" id="date" value="${currentDate}" onchange="changeDate()"></div>
         </div>
         <div class="block6">Time (in hours)
             <div class="block5"><input type="text" name="time" id="time"></div>
@@ -56,6 +56,7 @@
             <input type="submit" onclick="updateUserTimeAndDescriptions(${userId})" name ="addTime" value="add new time"/>
         </div>
     </div>
+
 </form>
     <h2 style="margin-left: 250px" id="totalTime"></h2>
     <h2 style="margin-left: 250px">User time. Select number of visible trackers
@@ -66,17 +67,17 @@
         <option selected value="30" >Last 30</option>
         <option value="${currentMonth}" id="currentMonth">Current month</option>
         <option value="${lastMonth}"  id="lastMonth">Last month</option>
-        <option id="custRange" onfocus="">CustomRange</option>
+        <option id="custRange">CustomRange</option>
     </select>
     </h2>
 
 <form >
     <div class="block3" style="padding-bottom: 20px" id="customDate">
     <div class="block6"> From
-        <div class="block5"><input type="date" name="fromDate" id="fromDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId})"></div>
+        <div class="block5"><input type="date" name="fromDate" id="fromDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId}), changeFromDate()"></div>
         </div>
-        <div class="block6"> To
-            <div class="block5"><input type="date" name="toDate" id="toDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId})"></div>
+        <div class="block6">To
+            <div class="block5"><input type="date" name="toDate" id="toDate" value="${currentDate}" onchange="getUserTimeAndDescription(${userId}), changeToDate()"></div>
         </div>
     </div>
 </form>
