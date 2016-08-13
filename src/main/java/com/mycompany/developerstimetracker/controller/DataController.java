@@ -40,13 +40,13 @@ public class DataController implements Serializable{
 
     @RequestMapping(value = "/{id}/time/descriptions/bylimit/{limit}", method = RequestMethod.GET )
     public @ResponseBody List<Time> getUserTimeAndDescriptionByLimit(@PathVariable("id") int id,
-                                                              @PathVariable("limit") int limit) {
+                                                                     @PathVariable("limit") int limit) {
         return dataHandler.timeHandlerByLimit(id, limit);
     }
 
     @RequestMapping(value = "/{id}/time/descriptions/bymonth/{month}", method = RequestMethod.GET )
     public @ResponseBody List<Time> getUserTimeAndDescriptionByMonth(@PathVariable("id") int id,
-                                                              @PathVariable("month") Month month) {
+                                                                     @PathVariable("month") Month month) {
         return dataHandler.timeHandlerByMonth(id, month);
     }
 
@@ -65,7 +65,7 @@ public class DataController implements Serializable{
     @RequestMapping(value = "/{userid}/{projectname}/update", method = RequestMethod.PUT )
     public @ResponseBody Time updateUserTimeAndDescriptions(@PathVariable("userid") Integer userId,
                                                             @PathVariable("projectname") String projectName,
-                                                                @RequestBody TimeTO newTime) {
+                                                            @RequestBody TimeTO newTime) {
         return dataHandler.updateUserTime(userId,projectName,newTime);
     }
 
@@ -75,9 +75,14 @@ public class DataController implements Serializable{
         return dataHandler.getTotalTime(currentMonth ,id);
     }
 
-    @RequestMapping(value ="/availableprojects",  method = RequestMethod.GET)
-    public @ResponseBody List<Project> getAvailableProjects() {
-        return dataHandler.getAvailableProjects();
+    @RequestMapping(value ="/{id}/availableprojects",  method = RequestMethod.GET)
+    public @ResponseBody List<Project> getAvailableProjects(@PathVariable("id") Integer id) {
+        return dataHandler.getAvailableProjects(id);
+    }
+
+    @RequestMapping(value ="/allprojects",  method = RequestMethod.GET)
+    public @ResponseBody List<Project> getAllProjects() {
+        return dataHandler.getAllProjects();
     }
 
     @RequestMapping(value = "/admin/teamlead/addproject", method = RequestMethod.PUT)
@@ -93,7 +98,7 @@ public class DataController implements Serializable{
 
     @RequestMapping(value = "/admin/teamlead/{userId}/{projectName}/remove", method = RequestMethod.DELETE)
     public @ResponseBody String removeUserFromProject(@PathVariable int userId,
-                                                 @PathVariable String projectName) {
+                                                      @PathVariable String projectName) {
         return dataHandler.removeUserFromProject(userId, projectName);
     }
 
@@ -102,9 +107,19 @@ public class DataController implements Serializable{
         return dataHandler.getUsersInProject(projectName);
     }
 
-    @RequestMapping(value ="/report",  method = RequestMethod.GET)
-    public @ResponseBody String getResport() throws JRException {
-        return dataHandler.getReport();
+
+    @RequestMapping(value = "/admin/teamlead/report/{id}/bymonth/{month}/{format}", method = RequestMethod.POST )
+    public @ResponseBody String getReportByMonth(@PathVariable("id") int id,
+                                                 @PathVariable("month") Month month,
+                                                 @PathVariable("format") String format) throws JRException {
+        return dataHandler.getReportByMonth(id, month, format);
     }
 
+    @RequestMapping(value = "/admin/teamlead/report//{id}/byrange/{fromDate}/{toDate}/{format}", method = RequestMethod.POST )
+    public @ResponseBody String getReportByRange(@PathVariable("id") int id,
+                                                 @PathVariable("fromDate") Date fromDate,
+                                                 @PathVariable("toDate") Date toDate,
+                                                 @PathVariable("format") String format) throws JRException {
+        return dataHandler.getReportByRange(id, fromDate, toDate, format);
+    }
 }

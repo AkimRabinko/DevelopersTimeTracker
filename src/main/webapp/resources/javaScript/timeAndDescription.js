@@ -1,9 +1,9 @@
 function getUserTimeAndDescription(userId) {
     var numberOfResults = $('#numberOfTimes option:selected').attr("id");
-    if(numberOfResults!="custRange") {
+    if(numberOfResults!="custDate") {
         document.getElementById("customDate").style.visibility ="hidden";
     }
-    if (numberOfResults==="custRange") {
+    if (numberOfResults==="custDate") {
         document.getElementById("customDate").style.visibility="visible";
         getByCustomRange(userId);
     }

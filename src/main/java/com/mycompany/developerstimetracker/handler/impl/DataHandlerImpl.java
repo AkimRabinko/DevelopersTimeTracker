@@ -65,8 +65,12 @@ public class DataHandlerImpl implements DataHandler{
         return userDAO.getTotalTime(month, id);
     }
 
-    public List<Project> getAvailableProjects() {
-        return userDAO.getAvailableProjects();
+    public List<Project> getAvailableProjects(int id) {
+        return userDAO.getAvailableProjects(id);
+    }
+
+    public List<Project> getAllProjects() {
+        return userDAO.getAllProjects();
     }
 
     public Project addNewProject(Project project) {
@@ -77,7 +81,6 @@ public class DataHandlerImpl implements DataHandler{
         return userDAO.addUserToProject(userId, projectName);
     }
 
-    @Override
     public String removeUserFromProject(int userId, String projectName) {
         return userDAO.removeUserFromProject(userId, projectName);
     }
@@ -86,8 +89,11 @@ public class DataHandlerImpl implements DataHandler{
         return userDAO.getUsersInProject(projectName);
     }
 
-    public String getReport() throws JRException {
-        return userDAO.getReport();
+    public String getReportByMonth(int id, Month month, String format) throws JRException {
+        return userDAO.getReportByMonth(id, month, format);
     }
 
+    public String getReportByRange(int id, Date fromDate, Date toDate, String format) throws JRException {
+        return userDAO.getReportByCustomRange(id, fromDate, toDate, format);
+    }
 }

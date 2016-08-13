@@ -23,10 +23,12 @@ public interface DataHandler {
     User addNewUser(UserTO newUser);
     Time updateUserTime(int userId, String projectName, TimeTO newTime);
     int getTotalTime (Month month, int id);
-    List<Project> getAvailableProjects();
+    List<Project> getAvailableProjects(int id);
+    List<Project> getAllProjects();
     Project addNewProject(Project project);
     String addUserToProject(int userId, String projectName);
     String removeUserFromProject(int userId, String projectName);
     List<User> getUsersInProject(String projectName);
-    String getReport() throws JRException;
+    String getReportByMonth(int id, Month month, String format) throws JRException;
+    String getReportByRange(int id, Date fromDate, Date toDate, String format) throws JRException;
 }

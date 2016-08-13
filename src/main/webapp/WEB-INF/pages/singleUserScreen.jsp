@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="<c:url value="/resources/javaScript/main.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/resources/javaScript/dateValidator.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/javaScript/timeAndDescription.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/singleUserScreen.css"/>">
     <style type="text/css">
         body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
@@ -16,7 +17,7 @@
                 background-color: #033334;}
     </style>
 </head>
-<body  onload="getUserById(${userId}), getUserTimeAndDescription(${userId}) , totalTime(${userId}) , getAvailableProjects()">
+<body  onload="getUserById(${userId}), getUserTimeAndDescription(${userId}) , totalTime(${userId}) , getAvailableProjects(${userId})">
 
 <h2><a href="/DevelopersTimeTracker/users/admin" ><button name="admin">Admin page</button></a>
     Single user preview
@@ -37,7 +38,7 @@
 
 <form id="dateForm">
     <div class="block3" >
-        <div id="projects"></div>
+        <div id="project"></div>
     </div>
 
 <h2 style="margin-left: 250px">Add new time to tracker</h2>
@@ -67,7 +68,7 @@
         <option selected value="30" >Last 30</option>
         <option value="${currentMonth}" id="currentMonth">Current month</option>
         <option value="${lastMonth}"  id="lastMonth">Last month</option>
-        <option id="custRange">CustomRange</option>
+        <option id="custDate">CustomRange</option>
     </select>
     </h2>
 

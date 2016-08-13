@@ -17,7 +17,7 @@
                 background-color: #033334;}
     </style>
 </head>
-<body onload="getAvailableProjects(), getUsersTeamLead(), getUsersInProject(), makeReport()">
+<body onload="getAllProjects(), getUsersTeamLead(), getUsersInProject(), makeReport()">
 <h2><a href="/DevelopersTimeTracker/users/admin" ><button name="back">Back</button></a> Welcome to team lead page</h2>
 
 <form id="addNewProjectForm">
@@ -37,19 +37,22 @@
     <div class="block3">
         <div id="projects"></div>
         <h2>Create response</h2>
-            <select id="responseFormat" class="block1" style="height: auto; width: auto;">
-                <option value="csv" >csv</option>
+        <div class="block6" style="width: 280px; height: 26px">Enter user Id
+            <div class="block5" ><input type="text" name="userForReportId" id="userForReportId" style="width: 80px;"></div>
+        </div>
+            <select id="responseFormat" class="block1" style="height: auto; width: auto; margin-left: 10px;">
+                <option value="pdf" >pdf</option>
                 <option selected value="xml" >xml</option>
             </select>
         <select id="numberOfTimes" class="block1"
                 style="height: auto;  margin-left: 10px;"
-                onchange="makeReport()">
+                onchange="makeReport(false)">
             <option selected value="${currentMonth}" id="currentMonth" >Current month</option>
             <option value="${lastMonth}"  id="lastMonth">Last month</option>
             <option id="custRange">CustomRange</option>
         </select>
         <div class="block1" style=" margin-left: 10px; height: 26px">
-                <input type="submit"  name ="createResponse" value="create Response"/>
+                <input type="submit" onclick="makeReport(true)"  name ="createResponse" value="create Response"/>
         </div>
     </div>
 

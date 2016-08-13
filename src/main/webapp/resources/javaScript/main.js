@@ -185,10 +185,29 @@
                 })
             }
 
-            function getAvailableProjects() {
+            function getAvailableProjects(userId) {
                 $.ajax({
                     type: 'GET',
-                    url: '/DevelopersTimeTracker/users/availableprojects',
+                    url: '/DevelopersTimeTracker/users/' + userId + '/availableprojects',
+                    data: JSON,
+                    contentType: 'application/json',
+                    mimeType: 'application/json',
+                    success: function (data) {
+                        var items = "<select  style='width: auto ; height: auto' id=\"selectedProject\" class=\"block1\""
+                            + "style=\"height: auto;\" onchange='getUsersInProject()'>";
+                        $.each(data, function (id, projects) {
+                            items += "<option value=\" " + projects.projectName + "\">" +  projects.projectName  +  "</option>";
+                        });
+                        items+= "</select>";
+                        $('#project').html(items);
+                    }
+                });
+            }
+
+            function getAllProjects() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/DevelopersTimeTracker/users/allprojects',
                     data: JSON,
                     contentType: 'application/json',
                     mimeType: 'application/json',
@@ -200,7 +219,6 @@
                         });
                         items+= "</select>";
                         $('#projects').html(items);
-                        $('#project').html(items);
                     }
                 });
             }
