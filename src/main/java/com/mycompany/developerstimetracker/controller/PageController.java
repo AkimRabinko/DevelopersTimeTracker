@@ -1,6 +1,5 @@
 package com.mycompany.developerstimetracker.controller;
 
-import com.mycompany.developerstimetracker.dto.UserTO;
 import com.mycompany.developerstimetracker.entity.User;
 import com.mycompany.developerstimetracker.handler.DataHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,15 +66,26 @@ public class PageController {
     }
 
     @RequestMapping(value = "/admin/add", produces = MediaType.TEXT_HTML_VALUE)
-    public String addNewUser(@ModelAttribute("newUser") UserTO newUser, HttpServletRequest request) {
+    public String addNewUser() {
         return "addUserScreen";
+    }
+
+    @RequestMapping(value = "/admin/teamlead", produces = MediaType.TEXT_HTML_VALUE)
+    public String teamLead(ModelMap map) {
+        LocalDate currentDate = LocalDate.now();
+        Month currentMonth = LocalDate.now().getMonth();
+        Month lastMonth = LocalDate.now().getMonth().minus(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+        currentDate.format(formatter);
+        map.put("currentMonth", currentMonth);
+        map.put("lastMonth", lastMonth);
+        map.put("currentDate" , currentDate);
+        return "teamLeadScreen";
     }
 
     @RequestMapping(value = "/403")
     public String accessDenied() {
-
         ModelAndView model = new ModelAndView();
-        //check if user is login
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();

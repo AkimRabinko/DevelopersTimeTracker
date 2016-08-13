@@ -6,7 +6,7 @@
 <style type="text/css">
     body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
             background-position: right;
-            background-color:  #034748;}
+            background-color: #033334;}
 </style>
 
 <h2>HTTP Status 403 - Access is denied</h2>
