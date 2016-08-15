@@ -26,6 +26,7 @@ import java.util.Map;
 import static net.sf.jasperreports.engine.JasperCompileManager.compileReport;
 import static net.sf.jasperreports.engine.JasperCompileManager.writeReportToXmlFile;
 import static net.sf.jasperreports.engine.JasperFillManager.fillReport;
+import static net.sf.jasperreports.engine.JasperManager.printReport;
 import static net.sf.jasperreports.engine.JasperManager.printReportToPdfFile;
 
 /**
@@ -187,14 +188,15 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("year", year).list();
         Map parameters = new HashMap();
         parameters.put("Title", "Time tracker Report");
-        JasperDesign jasperDesign = JRXmlLoader.load("E:/GitHub/DevelopersTimeTracker/src/main/java/com/mycompany/developerstimetracker/dao/impl/reportFile1.xml");
+        JasperDesign jasperDesign = JRXmlLoader.load("src/main/java/com/mycompany/developerstimetracker/dao/impl/reportFile1.xml");
         JasperReport jasperReport = compileReport(jasperDesign);
         JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(allTime);
         JasperPrint jasperPrint = fillReport(jasperReport, parameters, ds);
         if(format.equals("pdf")) {
-            printReportToPdfFile(jasperPrint, "report" + allTime.get(id).getUser().getUserId() + ".pdf");
+            printReportToPdfFile(jasperPrint, "report" + id + ".pdf");
         } else {
-            writeReportToXmlFile(jasperReport , "report"+ allTime.get(id).getUser().getUserId() + ".xml");
+            writeReportToXmlFile(jasperReport , "report"+ id + ".xml");
+
         }
         return "report Created";
     }
@@ -208,14 +210,14 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("id", id).list();
         Map parameters = new HashMap();
         parameters.put("Title", "Time tracker Report");
-        JasperDesign jasperDesign = JRXmlLoader.load("E:/GitHub/DevelopersTimeTracker/src/main/java/com/mycompany/developerstimetracker/dao/impl/reportFile1.xml");
+        JasperDesign jasperDesign = JRXmlLoader.load("src/main/java/com/mycompany/developerstimetracker/dao/impl/reportFile1.xml");
         JasperReport jasperReport = compileReport(jasperDesign);
         JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(allTime);
         JasperPrint jasperPrint = fillReport(jasperReport, parameters, ds);
         if(format.equals("pdf")) {
-            printReportToPdfFile(jasperPrint, "report"+ allTime.get(id).getUser().getUserId() + ".pdf");
+            printReportToPdfFile(jasperPrint, "report"+ id + ".pdf");
         } else {
-            writeReportToXmlFile(jasperReport , "report"+ allTime.get(id).getUser().getUserId() + ".xml");
+            writeReportToXmlFile(jasperReport , "report"+ id + ".xml");
         }
         return "report Created";
     }

@@ -11,6 +11,7 @@
     <style type="text/css">
         body {  background-image: url("<c:url value="/resources/pictures/bg2.jpg" />");
                 background-position: right;
+                background-repeat: repeat-y;
                 background-color: #033334;}
     </style>
 </head>
